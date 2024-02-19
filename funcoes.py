@@ -1,6 +1,6 @@
-def verifica_colisao(x, y, circle_center, circle_radius):
-    distancia_centro = ((x - circle_center[0]) * 2 + (y - circle_center[1]) * 2) ** 0.5
-    return distancia_centro <= circle_radius
+def verifica_colisao(x, y, posicao, raio):
+    distancia_centro = ((x - posicao[0]) * 2 + (y - posicao[1]) * 2) ** 0.5
+    return distancia_centro <= raio
 
 def calcular_aceleracao_gravitacional(particula, centro_gravitacional, c):
     px, py = particula.posicao

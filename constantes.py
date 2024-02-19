@@ -1,14 +1,6 @@
 import pygame as pg
 import numpy as np
 from funcoes import *
-from dados import *
-
-# tiros = 10
-# font = pg.font.SysFont('Arial', 36)  
-# text_color = (255, 255, 255)
-
-# def iniciar_tiros():
-#     return 10, pg.font.SysFont('Arial', 36), (255, 255, 255)
 
 c = 100  # Constante gravitacional
 CENTRO_GRAVITACIONAL = (400, 300)  # Posição do centro gravitacional
@@ -33,7 +25,6 @@ s = s0
 sol = np.array([300, 100])
 planeta = np.array([100, 300])
 
-
 # Personagem
 personagem = pg.Surface((5, 5))  # Tamanho do personagem
 personagem.fill(COR_PERSONAGEM)  # Cor do personagem
@@ -51,11 +42,11 @@ luci_retangulo = pg.Surface((60, 30))  # Tamanho do personagem
 luci_retangulo.fill((200,200,200))  # Cor do personagem
 
 pg.display.set_caption('image')
-imp = pg.image.load("images/anjo.png").convert()
-imp = pg.transform.scale(imp,(70,48))
+imp = pg.image.load("images/terra.png").convert()
+imp = pg.transform.scale(imp,(60,60))
 
 rodando = True
-pressed = True
+pressed = False
 
 x_satelite = np.random.randint(150,490)
 y_satelite = np.random.randint(150,330)

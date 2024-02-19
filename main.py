@@ -33,29 +33,12 @@ while rodando:
             v *= 5
             s = s0
 
-        # if verifica_colisao(s[0], s[1], circle_center, circle_radius): 
-        #     rnd = abs(np.random.randn(2))
-        #     v0 = pg.mouse.get_pos() - s0
-        #     v0 = (v0 / np.linalg.norm(v0)) * 0.1
-        #     s, v = s0, v0*rnd
-        #     tiros -= 1
-
     # Controlar frame rate
     clock.tick(FPS)
 
 
     # Processar posicoes
-    v = v 
     s = s + v
-
-    # if tela == 1:
-    #     largura, altura = 640, 480
-    #     screen = pg.display.set_mode((largura, altura))
-    #     imagem_fundo = pg.image.load('images\OIG1.jpg')
-    #     imagem_fundo = pg.transform.scale(imagem_fundo, (largura, altura))
-    #     screen.blit(imagem_fundo, (0, 0))
-    #     if event.type == pg.MOUSEBUTTONDOWN:
-    #         tela == 2
 
     if tela == 2:
         # Desenhar fundo
@@ -66,17 +49,18 @@ while rodando:
             y = random.randint(0, 480)
             pg.draw.circle(screen, (255,255,255), (x, y), 2)
 
+        # if verifica_colisao(s[0], s[1], (570, y_luci), 10):
+        #     tela = 4
+
+        # if verifica_colisao(s[0], s[1], (x_satelite - circle_radius, y_satelite - circle_radius), 1) or verifica_colisao(s[0], s[1], (circle_center[0] - circle_radius, circle_center[1] - circle_radius), 1) or verifica_colisao(s[0], s[1], (planeta[0] - planet_radius, planeta[1] - planet_radius), 1):
+        #     tela = 3
+
         # Desenhar personagem
         rect = pg.Rect(s, (10, 10))  # First tuple is position, second is size.
         screen.blit(personagem, rect)
 
-        # rect_canhao = pg.Rect(s, (10, 10))  # First tuple is position, second is size.
-        # screen.blit(canhao, rect_canhao)
 
         celeste = pg.draw.circle(screen, (0, 200, 200), (x_satelite,y_satelite), 20)  # First tuple is position, second is size.
-        # screen.blit(corpo_celeste, celeste)
-
-        # Using blit to copy content from one surface to other
         screen.blit(imp, (10, 180))
 
 
@@ -95,13 +79,8 @@ while rodando:
         screen.blit(imagem_sol, (circle_center[0] - circle_radius, circle_center[1] - circle_radius))
         screen.blit(imagem_planeta, (planeta[0] - planet_radius, planeta[1] - planet_radius))
 
-        # text_surface = font.render(f"Tiros restantes: {tiros}", True, text_color)
-        # screen.blit(text_surface, (10, 10))  # Posição do texto na tela
-
         for i in range(tiros):
             screen.blit(imagem_tiro, (5+(i*25),5))
-
-        # if verifica_colisao(y[0], y[1], circle_center, circle_radius):
 
         # Update!
         pressed = False
@@ -110,6 +89,13 @@ while rodando:
         largura, altura = 640, 480
         screen = pg.display.set_mode((largura, altura))
         imagem_fundo = pg.image.load('images\OIG3.jpg')
+        imagem_fundo = pg.transform.scale(imagem_fundo, (largura, altura))
+        screen.blit(imagem_fundo, (0, 0))
+
+    if tela == 4:
+        largura, altura = 640, 480
+        screen = pg.display.set_mode((largura, altura))
+        imagem_fundo = pg.image.load('images\OIG1.jpg')
         imagem_fundo = pg.transform.scale(imagem_fundo, (largura, altura))
         screen.blit(imagem_fundo, (0, 0))
 
