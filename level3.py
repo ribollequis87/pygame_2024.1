@@ -4,7 +4,7 @@ from funcoes import *
 from constantes import *
 import random
 
-def level3():
+def level_3(tela, rodando):
 
     tiros = 2
 

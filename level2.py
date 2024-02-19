@@ -4,9 +4,11 @@ from funcoes import *
 from constantes import *
 import random
 
-def level2():
+def level_2(tela, rodando):
 
     tiros = 3
+
+    s = np.array([80,190])
 
     # Capturar eventos
     for event in pg.event.get():

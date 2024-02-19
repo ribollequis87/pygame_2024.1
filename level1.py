@@ -1,13 +1,10 @@
 import pygame as pg
 import numpy as np
 from funcoes import *
-from constantes import *
+from constantes import s0, clock, FPS, screen, BLACK, personagem, x_satelite, y_satelite, imp, y_luci, luci, luci_retangulo, circle_color, circle_center, circle_radius, planet_color, planeta, planet_radius, imagem_satelite, imagem_sol, imagem_planeta, imagem_tiro
 import random
 
-def level1():
-
-    tiros = 3
-    tela = 2
+def level_1(tela, rodando):
 
     # Capturar eventos
     for event in pg.event.get():
@@ -36,61 +33,46 @@ def level1():
     # Processar posicoes
     s = s + v
 
-    if tela == 2:
-        # Desenhar fundo
-        screen.fill((BLACK))
+    # Desenhar fundo
+    screen.fill((BLACK))
 
-        for _ in range(1):
-            x = random.randint(0, 640)
-            y = random.randint(0, 480)
-            pg.draw.circle(screen, (255,255,255), (x, y), 2)
+    for _ in range(1):
+        x = random.randint(0, 640)
+        y = random.randint(0, 480)
+        pg.draw.circle(screen, (255,255,255), (x, y), 2)
 
-        # if verifica_colisao(s[0], s[1], (570, y_luci), 10):
-        #     tela = 4
+    # if verifica_colisao(s[0], s[1], (570, y_luci), 10):
+    #     tela = 4
 
-        # if verifica_colisao(s[0], s[1], (x_satelite - circle_radius, y_satelite - circle_radius), 1) or verifica_colisao(s[0], s[1], (circle_center[0] - circle_radius, circle_center[1] - circle_radius), 1) or verifica_colisao(s[0], s[1], (planeta[0] - planet_radius, planeta[1] - planet_radius), 1):
-        #     tela = 3
+    # if verifica_colisao(s[0], s[1], (x_satelite - circle_radius, y_satelite - circle_radius), 1) or verifica_colisao(s[0], s[1], (circle_center[0] - circle_radius, circle_center[1] - circle_radius), 1) or verifica_colisao(s[0], s[1], (planeta[0] - planet_radius, planeta[1] - planet_radius), 1):
+    #     tela = 3
 
-        # Desenhar personagem
-        rect = pg.Rect(s, (10, 10))  # First tuple is position, second is size.
-        screen.blit(personagem, rect)
-
-
-        celeste = pg.draw.circle(screen, (0, 200, 200), (x_satelite,y_satelite), 20)  # First tuple is position, second is size.
-        screen.blit(imp, (10, 180))
+    # Desenhar personagem
+    rect = pg.Rect(s, (10, 10))  # First tuple is position, second is size.
+    screen.blit(personagem, rect)
 
 
-        rect_luci = pg.Rect((570, y_luci), (50,50))  # First tuple is position, second is size.
-        screen.blit(luci_retangulo, rect_luci)
+    celeste = pg.draw.circle(screen, (0, 200, 200), (x_satelite,y_satelite), 20)  # First tuple is position, second is size.
+    screen.blit(imp, (10, 180))
 
-        screen.blit(luci, (570, y_luci))
 
-        # Sol
-        pg.draw.circle(screen, circle_color, circle_center, circle_radius)
+    rect_luci = pg.Rect((570, y_luci), (50,50))  # First tuple is position, second is size.
+    screen.blit(luci_retangulo, rect_luci)
 
-        # Planeta
-        pg.draw.circle(screen, planet_color, planeta, planet_radius)
+    screen.blit(luci, (570, y_luci))
 
-        screen.blit(imagem_satelite, (x_satelite - circle_radius, y_satelite - circle_radius))
-        screen.blit(imagem_sol, (circle_center[0] - circle_radius, circle_center[1] - circle_radius))
-        screen.blit(imagem_planeta, (planeta[0] - planet_radius, planeta[1] - planet_radius))
+    # Sol
+    pg.draw.circle(screen, circle_color, circle_center, circle_radius)
 
-        for i in range(tiros):
-            screen.blit(imagem_tiro, (5+(i*25),5))
+    # Planeta
+    pg.draw.circle(screen, planet_color, planeta, planet_radius)
 
-        # Update!
-        pressed = False
+    screen.blit(imagem_satelite, (x_satelite - circle_radius, y_satelite - circle_radius))
+    screen.blit(imagem_sol, (circle_center[0] - circle_radius, circle_center[1] - circle_radius))
+    screen.blit(imagem_planeta, (planeta[0] - planet_radius, planeta[1] - planet_radius))
 
-    if tela == 3:
-        largura, altura = 640, 480
-        screen = pg.display.set_mode((largura, altura))
-        imagem_fundo = pg.image.load('images\OIG3.jpg')
-        imagem_fundo = pg.transform.scale(imagem_fundo, (largura, altura))
-        screen.blit(imagem_fundo, (0, 0))
+    for i in range(tiros):
+        screen.blit(imagem_tiro, (5+(i*25),5))
 
-    if tela == 4:
-        largura, altura = 640, 480
-        screen = pg.display.set_mode((largura, altura))
-        imagem_fundo = pg.image.load('images\OIG1.jpg')
-        imagem_fundo = pg.transform.scale(imagem_fundo, (largura, altura))
-        screen.blit(imagem_fundo, (0, 0))
+    # Update!
+    pressed = False

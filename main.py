@@ -3,9 +3,9 @@ import numpy as np
 from funcoes import *
 from constantes import *
 import random
-from level1 import *
-from level2 import *
-from level3 import *
+from level1 import level_1
+from level2 import level_2
+from level3 import level_3
 
 pg.init()
 
@@ -13,18 +13,18 @@ tela = 0
 largura, altura = 640, 480
 screen = pg.display.set_mode((largura, altura))
 
+rodando = True
+
 while rodando:
 
-    for event in pg.event.get():
-            if event.type == pg.QUIT:
-                rodando = False
-
     if tela == 0:
-        imagem_fundo = pg.image.load('images\OIG1.jpg')
+        imagem_fundo = pg.image.load('images/inicial.png')
         imagem_fundo = pg.transform.scale(imagem_fundo, (largura, altura))
         screen.blit(imagem_fundo, (0, 0))
 
         for event in pg.event.get():
+            if event.type == pg.QUIT:
+                rodando = False
             if event.type == pg.MOUSEBUTTONDOWN:
                 tela = 1
 
@@ -34,11 +34,13 @@ while rodando:
         screen.blit(imagem_fundo, (0, 0))
 
         for event in pg.event.get():
+            if event.type == pg.QUIT:
+                rodando = False
             if event.type == pg.MOUSEBUTTONDOWN:
-                tela = 3
-
+                tela = 2
+ 
     if tela == 2:
-        level1()
+        level_1(tela, rodando)
 
     if tela == 3:
         imagem_fundo = pg.image.load('images/tela_niveis2.png')
@@ -46,11 +48,13 @@ while rodando:
         screen.blit(imagem_fundo, (0, 0))
 
         for event in pg.event.get():
+            if event.type == pg.QUIT:
+                rodando = False
             if event.type == pg.MOUSEBUTTONDOWN:
-                tela = 5
+                tela = 4
 
     if tela == 4:
-        level2()
+        level_2(tela, rodando)
 
     if tela == 5:
         imagem_fundo = pg.image.load('images/tela_niveis3.png')
@@ -58,11 +62,13 @@ while rodando:
         screen.blit(imagem_fundo, (0, 0))
 
         for event in pg.event.get():
+            if event.type == pg.QUIT:
+                rodando = False
             if event.type == pg.MOUSEBUTTONDOWN:
-                tela = 7
+                tela = 6
 
     if tela == 6:
-        level3()
+        level_3(tela, rodando)
 
     if tela == 7:
         imagem_fundo = pg.image.load('images/tela_niveis4.png')
@@ -70,6 +76,8 @@ while rodando:
         screen.blit(imagem_fundo, (0, 0))
 
         for event in pg.event.get():
+            if event.type == pg.QUIT:
+                rodando = False
             if event.type == pg.MOUSEBUTTONDOWN:
                 rodando = False
 
@@ -79,6 +87,8 @@ while rodando:
         screen.blit(imagem_fundo, (0, 0))
 
         for event in pg.event.get():
+            if event.type == pg.QUIT:
+                rodando = False
             if event.type == pg.MOUSEBUTTONDOWN:
                 tela = 1
 
