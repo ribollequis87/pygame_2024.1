@@ -42,8 +42,8 @@ luci_retangulo = pg.Surface((60, 30))  # Tamanho do personagem
 luci_retangulo.fill((200,200,200))  # Cor do personagem
 
 pg.display.set_caption('image')
-imp = pg.image.load("images/terra.png").convert()
-imp = pg.transform.scale(imp,(60,60))
+imp = pg.image.load("images/nave1.jpg").convert()
+imp = pg.transform.scale(imp,(80,45))
 
 rodando = True
 pressed = False
