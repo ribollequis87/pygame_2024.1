@@ -7,6 +7,10 @@ class Assets:
         self.c = 100  # Constante gravitacional
         self.CENTRO_GRAVITACIONAL = (400, 300)  # Posição do centro gravitacional
 
+        self.constante_satelite = 600
+        self.constante_sol = 500
+        self.constante_planeta = 400
+
         # Tamanho da tela e definição do FPS
         self.screen = pg.display.set_mode((640, 480))
         self.clock = pg.time.Clock()
@@ -28,7 +32,7 @@ class Assets:
         self.planeta = np.array([100, 300])
 
         # Personagem
-        self.personagem = pg.Surface((5, 5))  # Tamanho do personagem
+        self.personagem = pg.Surface((10, 10))  # Tamanho do personagem
         self.personagem.fill(self.COR_PERSONAGEM)  # Cor do personagem
 
         self.canhao = pg.Surface((5, 5))  # Tamanho do personagem

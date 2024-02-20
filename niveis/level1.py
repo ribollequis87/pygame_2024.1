@@ -27,7 +27,7 @@ class Level1:
                 self.pressed = True
 
 
-        if Utils.verificar_colisao_retangulo(self.s[0], self.s[1], 570, self.assets.y_luci, 50, 50):
+        if Utils.verificar_colisao_retangulo(self.s[0], self.s[1], 570, (self.assets.y_luci-20), 50, 50):
             return 3
 
         # Verificar se o personagem atingiu os limites da tela
@@ -52,6 +52,7 @@ class Level1:
                 self.v = self.v / np.linalg.norm(self.v)
                 self.v *= 5
                 self.s = self.assets.s0
+        
 
         # Controlar frame rate
         self.assets.clock.tick(self.assets.FPS)
@@ -59,6 +60,13 @@ class Level1:
         # Processar posição
         self.v = self.v
         self.s = self.s + self.v
+
+        if self.s[0] != 80 and self.s[1] != 190:
+
+            distance = np.linalg.norm((self.assets.x_satelite, self.assets.y_satelite) - self.s)
+            gravtional_direction = ((self.assets.x_satelite, self.assets.y_satelite) - self.s) / distance
+            gravtional_force = (self.assets.constante_satelite / distance**2) * gravtional_direction
+            self.v = self.v + gravtional_force
 
         pg.display.update()
 
@@ -85,6 +93,8 @@ class Level1:
 
         self.rect = pg.Rect(self.s, (10, 10))
         self.assets.screen.blit(self.assets.personagem, self.rect)
+
+        self.rect = pg.Rect((self.s[0] - 5, self.s[1] - 5), (10, 10))
         self.assets.screen.blit(self.assets.imagem_tiro, self.rect)
 
         self.assets.screen.blit(self.assets.imagem_satelite, (self.assets.x_satelite - self.assets.circle_radius, self.assets.y_satelite - self.assets.circle_radius))

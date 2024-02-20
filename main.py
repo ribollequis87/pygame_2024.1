@@ -80,6 +80,9 @@ while rodando:
             level1.draw()
             rodando = level1.update()
 
+        if rodando == False:
+            break
+
         rodando = level1.update()
             
         if rodando == 3:
@@ -96,6 +99,9 @@ while rodando:
             level2.draw()
             rodando = level2.update()
 
+        if rodando == False:
+            break
+
         rodando = level2.update()
             
         if rodando == 5:
@@ -111,6 +117,9 @@ while rodando:
         while rodando == 6:
             level3.draw()
             rodando = level3.update()
+
+        if rodando == False:
+            break
 
         rodando = level3.update()
             
