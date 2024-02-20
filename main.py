@@ -1,5 +1,6 @@
 import pygame as pg
 from constantes import *
+from funcoes import Utils
 from niveis.level1 import Level1
 from niveis.level2 import Level2
 from niveis.level3 import Level3
@@ -7,6 +8,7 @@ from niveis.level3 import Level3
 pg.init()
 
 assets = Assets()
+funcoes = Utils()
 
 # Configurações da tela
 largura, altura = 640, 480
@@ -14,6 +16,9 @@ screen = pg.display.set_mode((largura, altura))
 
 rodando = True
 tela_atual = 0
+
+tempo_passado = 0
+tempo_exibicao = 220000
 
 while rodando:
 
@@ -25,8 +30,10 @@ while rodando:
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 rodando = False
-            if event.type == pg.MOUSEBUTTONDOWN:
-                tela_atual = 1
+
+        tempo_passado += pg.time.get_ticks()
+        if tempo_passado >= tempo_exibicao:
+            tela_atual = 1
 
     elif tela_atual == 1:
         imagem_fundo = pg.image.load('images/tela_niveis1.png')
@@ -36,7 +43,10 @@ while rodando:
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 rodando = False
-            if event.type == pg.MOUSEBUTTONDOWN:
+
+            pos = pg.mouse.get_pos()
+
+            if event.type == pg.MOUSEBUTTONDOWN and funcoes.verificar_colisao_retangulo(pos[0], pos[1], 70, 200, 120, 100):
                 tela_atual = 2
 
     elif tela_atual == 3:
@@ -47,7 +57,10 @@ while rodando:
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 rodando = False
-            if event.type == pg.MOUSEBUTTONDOWN:
+
+            pos = pg.mouse.get_pos()
+
+            if event.type == pg.MOUSEBUTTONDOWN and funcoes.verificar_colisao_retangulo(pos[0], pos[1], 230, 40, 120, 100):
                 tela_atual = 4
 
     elif tela_atual == 5:
@@ -58,7 +71,10 @@ while rodando:
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 rodando = False
-            if event.type == pg.MOUSEBUTTONDOWN:
+
+            pos = pg.mouse.get_pos()
+            
+            if event.type == pg.MOUSEBUTTONDOWN and funcoes.verificar_colisao_retangulo(pos[0], pos[1], 475, 200, 120, 100):
                 tela_atual = 6
 
     elif tela_atual == 7:

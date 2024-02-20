@@ -25,6 +25,13 @@ class Level2:
             if event.type == pg.MOUSEBUTTONDOWN and self.tiros >= 0:
                 self.pressed = True
 
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_UP and self.assets.v0 < 6 and self.assets.v0 >= 1:
+                    self.assets.v0 = self.assets.v0 + 1
+
+                if event.key == pg.K_DOWN and self.assets.v0 <= 6 and self.assets.v0 > 1:
+                    self.assets.v0 = self.assets.v0 - 1
+
 
         if Utils.verificar_colisao_retangulo(self.s[0], self.s[1], 570, (self.assets.y_luci-20), 50, 50):
             return 5
@@ -36,7 +43,7 @@ class Level2:
                 self.y = pg.mouse.get_pos()
                 self.v = self.y - self.assets.s0
                 self.v = self.v / np.linalg.norm(self.v)
-                self.v *= 5
+                self.v *= self.assets.v0
                 self.s = self.assets.s0
 
         if (self.s[0] < 10 or self.s[0] > 630 or self.s[1] < 10 or self.s[1] > 470):
@@ -49,7 +56,7 @@ class Level2:
                 self.y = pg.mouse.get_pos()
                 self.v = self.y - self.assets.s0
                 self.v = self.v / np.linalg.norm(self.v)
-                self.v *= 5
+                self.v *= self.assets.v0
                 self.s = self.assets.s0
 
         # Controlar frame rate
@@ -87,11 +94,13 @@ class Level2:
             pg.draw.circle(self.assets.screen, (255, 255, 255), (x, y), 2)
 
         # Desenhar personagem
-        self.rect = pg.Rect(self.s, (10, 10))
-        self.assets.screen.blit(self.assets.personagem, self.rect)
+        if self.s[0] != 80 and self.s[1] != 190:
 
-        self.rect = pg.Rect((self.s[0] - 5, self.s[1] - 5), (10, 10))
-        self.assets.screen.blit(self.assets.imagem_tiro, self.rect)
+            self.rect = pg.Rect(self.s, (10, 10))
+            self.assets.screen.blit(self.assets.personagem, self.rect)
+
+            self.rect = pg.Rect((self.s[0] - 5, self.s[1] - 5), (10, 10))
+            self.assets.screen.blit(self.assets.imagem_tiro, self.rect)
 
         celeste = pg.draw.circle(self.assets.screen, (0, 200, 200), (self.assets.x_satelite, self.assets.y_satelite), 20)
         self.assets.screen.blit(self.assets.imp, (10, 180))
@@ -109,4 +118,10 @@ class Level2:
 
         # Desenhar tiros disponíveis
         for i in range(self.tiros):
-            self.assets.screen.blit(self.assets.imagem_tiro, (5 + (i * 25), 5))
+            self.assets.screen.blit(self.assets.imagem_tiro, (15 + (i * 25), 15))
+
+        for i in range(6):
+            self.assets.screen.blit(self.assets.imagem_raio_vazio, (608 - (i * 25), 15))
+
+        for i in range(self.assets.v0):
+            self.assets.screen.blit(self.assets.imagem_raio, (608 - (i * 25), 15))

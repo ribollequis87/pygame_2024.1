@@ -19,13 +19,15 @@ class Assets:
         self.BLACK = (0, 0, 0)
         self.COR_PERSONAGEM = (200, 200, 200)
 
+        self.v0 = 5
+
         # Inicializar posicoes
         self.s0 = np.array([80, 190])
         self.a = np.array([0, 0.05])
         self.y = pg.mouse.get_pos()
         self.v = self.y - self.s0
         self.v = self.v / np.linalg.norm(self.v)
-        self.v *= 5
+        self.v *= self.v0
         self.s = self.s0
 
         self.sol = np.array([300, 100])
@@ -79,7 +81,7 @@ class Assets:
         self.imagem_sol = pg.transform.scale(self.imagem_sol, (2 * self.circle_radius, 2 * self.circle_radius))
 
         self.imagem_planeta = pg.image.load('images/urano.png')
-        self.imagem_planeta = pg.transform.scale(self.imagem_planeta, (2 * self.planet_radius, 2 * self.planet_radius))
+        self.imagem_planeta = pg.transform.scale(self.imagem_planeta, (2.3 * self.planet_radius, 2.3 * self.planet_radius))
 
         self.imagem_tiro = pg.image.load('images/portal.png')
         self.imagem_tiro = pg.transform.scale(self.imagem_tiro, (20, 20))
@@ -87,3 +89,8 @@ class Assets:
         self.imagem_fundo = pg.image.load('images/background.png')
         self.imagem_fundo = pg.transform.scale(self.imagem_fundo, (640, 510))
 
+        self.imagem_raio = pg.image.load('images/raio.png')
+        self.imagem_raio = pg.transform.scale(self.imagem_raio, (20, 25))
+
+        self.imagem_raio_vazio = pg.image.load('images/raio_vazio.png')
+        self.imagem_raio_vazio = pg.transform.scale(self.imagem_raio_vazio, (20, 25))
