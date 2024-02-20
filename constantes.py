@@ -1,79 +1,85 @@
 import pygame as pg
 import numpy as np
-from funcoes import *
 
-c = 100  # Constante gravitacional
-CENTRO_GRAVITACIONAL = (400, 300)  # Posição do centro gravitacional
+class Assets:
 
-# Tamanho da tela e definição do FPS
-screen = pg.display.set_mode((640, 480))
-clock = pg.time.Clock()
-FPS = 60  # Frames per Second
+    def __init__(self):
+        self.c = 100  # Constante gravitacional
+        self.CENTRO_GRAVITACIONAL = (400, 300)  # Posição do centro gravitacional
 
-BLACK = (0, 0, 0)
-COR_PERSONAGEM = (200, 200, 200)
+        # Tamanho da tela e definição do FPS
+        self.screen = pg.display.set_mode((640, 480))
+        self.clock = pg.time.Clock()
+        self.FPS = 60  # Frames per Second
 
-# Inicializar posicoes
-s0 = np.array([80,190])
-a = np.array([0, 0.05])
-y = pg.mouse.get_pos()
-v = y - s0
-v = v/np.linalg.norm(v)
-v *= 5
-s = s0
+        self.BLACK = (0, 0, 0)
+        self.COR_PERSONAGEM = (200, 200, 200)
 
-sol = np.array([300, 100])
-planeta = np.array([100, 300])
+        # Inicializar posicoes
+        self.s0 = np.array([80, 190])
+        self.a = np.array([0, 0.05])
+        self.y = pg.mouse.get_pos()
+        self.v = self.y - self.s0
+        self.v = self.v / np.linalg.norm(self.v)
+        self.v *= 5
+        self.s = self.s0
 
-# Personagem
-personagem = pg.Surface((5, 5))  # Tamanho do personagem
-personagem.fill(COR_PERSONAGEM)  # Cor do personagem
+        self.sol = np.array([300, 100])
+        self.planeta = np.array([100, 300])
 
-canhao = pg.Surface((5, 5))  # Tamanho do personagem
-canhao.fill((100,100,100))  # Cor do personagem
+        # Personagem
+        self.personagem = pg.Surface((5, 5))  # Tamanho do personagem
+        self.personagem.fill(self.COR_PERSONAGEM)  # Cor do personagem
 
-corpo_celeste = pg.Surface((20, 20))  
-corpo_celeste.fill((30,50,100))  # Cor do personagem
+        self.canhao = pg.Surface((5, 5))  # Tamanho do personagem
+        self.canhao.fill((100, 100, 100))  # Cor do personagem
 
-pg.display.set_caption('image')
-luci = pg.image.load("images/nave.png").convert()
-luci = pg.transform.scale(luci,(60,30))
-luci_retangulo = pg.Surface((60, 30))  # Tamanho do personagem
-luci_retangulo.fill((200,200,200))  # Cor do personagem
+        self.corpo_celeste = pg.Surface((20, 20))
+        self.corpo_celeste.fill((30, 50, 100))  # Cor do personagem
 
-pg.display.set_caption('image')
-imp = pg.image.load("images/nave1.jpg").convert()
-imp = pg.transform.scale(imp,(80,45))
+        pg.display.set_caption('image')
+        self.luci = pg.image.load("images/nave.png").convert()
+        self.luci = pg.transform.scale(self.luci, (60, 30))
+        self.luci_retangulo = pg.Surface((60, 30))  # Tamanho do personagem
+        self.luci_retangulo.fill((200, 200, 200))  # Cor do personagem
 
-rodando = True
-pressed = False
+        pg.display.set_caption('image')
+        self.imp = pg.image.load("images/nave1.png").convert()
+        self.imp = pg.transform.scale(self.imp, (80, 45))
 
-x_satelite = np.random.randint(150,490)
-y_satelite = np.random.randint(150,330)
+        self.rodando = True
+        self.pressed = False
 
-y_luci = np.random.randint(150,330)
+        self.x_satelite = np.random.randint(150, 500)
+        self.y_satelite = np.random.randint(150, 300)
 
-# Parâmetros do círculo
-circle_color = (255, 0, 0)
-circle_radius = 25
-circle_center = (300, 100)
-circle_rect = pg.Rect(circle_center[0] - circle_radius, circle_center[1] - circle_radius,
-                        circle_radius * 2, circle_radius * 2)
+        self.y_luci = np.random.randint(150, 330)
 
-# Parâmetros do planeta
-planet_color = (0, 0, 255)
-planet_radius = 20
-planet_rect = pg.Rect(planeta[0] - planet_radius, planeta[1] - planet_radius,
-                        planet_radius * 2, planet_radius * 2)
+        # Parâmetros do círculo
+        self.circle_color = (255, 0, 0)
+        self.circle_radius = 25
+        self.circle_center = (300, 100)
+        self.circle_rect = pg.Rect(self.circle_center[0] - self.circle_radius, self.circle_center[1] - self.circle_radius,
+                                   self.circle_radius * 2, self.circle_radius * 2)
 
-imagem_satelite = pg.image.load('images/venus.png')
-imagem_satelite = pg.transform.scale(imagem_satelite, (2 * circle_radius, 2 * circle_radius))
+        # Parâmetros do planeta
+        self.planet_color = (0, 0, 255)
+        self.planet_radius = 20
+        self.planet_rect = pg.Rect(self.planeta[0] - self.planet_radius, self.planeta[1] - self.planet_radius,
+                                    self.planet_radius * 2, self.planet_radius * 2)
 
-imagem_sol = pg.image.load('images/marte.webp')
-imagem_sol = pg.transform.scale(imagem_sol, (2 * circle_radius, 2 * circle_radius))
+        self.imagem_satelite = pg.image.load('images/pluto.png')
+        self.imagem_satelite = pg.transform.scale(self.imagem_satelite, (2 * self.circle_radius, 2 * self.circle_radius))
 
-imagem_planeta = pg.image.load('images/urano.png')
-imagem_planeta = pg.transform.scale(imagem_planeta, (2 * planet_radius, 2 * planet_radius))
+        self.imagem_sol = pg.image.load('images/marte.webp')
+        self.imagem_sol = pg.transform.scale(self.imagem_sol, (2 * self.circle_radius, 2 * self.circle_radius))
 
-imagem_tiro = pg.image.load('images/bola_de_fogo.png')
-imagem_tiro = pg.transform.scale(imagem_tiro, (20,20))
+        self.imagem_planeta = pg.image.load('images/urano.png')
+        self.imagem_planeta = pg.transform.scale(self.imagem_planeta, (2 * self.planet_radius, 2 * self.planet_radius))
+
+        self.imagem_tiro = pg.image.load('images/portal.png')
+        self.imagem_tiro = pg.transform.scale(self.imagem_tiro, (20, 20))
+
+        self.imagem_fundo = pg.image.load('images/background.png')
+        self.imagem_fundo = pg.transform.scale(self.imagem_fundo, (640, 510))
+

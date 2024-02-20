@@ -1,23 +1,23 @@
 import pygame as pg
-import numpy as np
-from funcoes import *
 from constantes import *
-import random
-from level1 import level_1
-from level2 import level_2
-from level3 import level_3
+from niveis.level1 import Level1
+from niveis.level2 import Level2
+from niveis.level3 import Level3
 
 pg.init()
 
-tela = 0
+assets = Assets()
+
+# Configurações da tela
 largura, altura = 640, 480
 screen = pg.display.set_mode((largura, altura))
 
 rodando = True
+tela_atual = 0
 
 while rodando:
 
-    if tela == 0:
+    if tela_atual == 0:
         imagem_fundo = pg.image.load('images/inicial.png')
         imagem_fundo = pg.transform.scale(imagem_fundo, (largura, altura))
         screen.blit(imagem_fundo, (0, 0))
@@ -26,9 +26,9 @@ while rodando:
             if event.type == pg.QUIT:
                 rodando = False
             if event.type == pg.MOUSEBUTTONDOWN:
-                tela = 1
+                tela_atual = 1
 
-    if tela == 1:
+    elif tela_atual == 1:
         imagem_fundo = pg.image.load('images/tela_niveis1.png')
         imagem_fundo = pg.transform.scale(imagem_fundo, (largura, altura))
         screen.blit(imagem_fundo, (0, 0))
@@ -37,12 +37,9 @@ while rodando:
             if event.type == pg.QUIT:
                 rodando = False
             if event.type == pg.MOUSEBUTTONDOWN:
-                tela = 2
- 
-    if tela == 2:
-        level_1(tela, rodando)
+                tela_atual = 2
 
-    if tela == 3:
+    elif tela_atual == 3:
         imagem_fundo = pg.image.load('images/tela_niveis2.png')
         imagem_fundo = pg.transform.scale(imagem_fundo, (largura, altura))
         screen.blit(imagem_fundo, (0, 0))
@@ -51,12 +48,9 @@ while rodando:
             if event.type == pg.QUIT:
                 rodando = False
             if event.type == pg.MOUSEBUTTONDOWN:
-                tela = 4
+                tela_atual = 4
 
-    if tela == 4:
-        level_2(tela, rodando)
-
-    if tela == 5:
+    elif tela_atual == 5:
         imagem_fundo = pg.image.load('images/tela_niveis3.png')
         imagem_fundo = pg.transform.scale(imagem_fundo, (largura, altura))
         screen.blit(imagem_fundo, (0, 0))
@@ -65,12 +59,9 @@ while rodando:
             if event.type == pg.QUIT:
                 rodando = False
             if event.type == pg.MOUSEBUTTONDOWN:
-                tela = 6
+                tela_atual = 6
 
-    if tela == 6:
-        level_3(tela, rodando)
-
-    if tela == 7:
+    elif tela_atual == 7:
         imagem_fundo = pg.image.load('images/tela_niveis4.png')
         imagem_fundo = pg.transform.scale(imagem_fundo, (largura, altura))
         screen.blit(imagem_fundo, (0, 0))
@@ -81,31 +72,54 @@ while rodando:
             if event.type == pg.MOUSEBUTTONDOWN:
                 rodando = False
 
-    if tela == 8:
-        imagem_fundo = pg.image.load('images\OIG3.jpg')
-        imagem_fundo = pg.transform.scale(imagem_fundo, (largura, altura))
-        screen.blit(imagem_fundo, (0, 0))
+    elif tela_atual == 2:
 
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                rodando = False
-            if event.type == pg.MOUSEBUTTONDOWN:
-                tela = 1
+        level1 = Level1(assets)
+
+        while rodando == 2:
+            level1.draw()
+            rodando = level1.update()
+
+        rodando = level1.update()
+            
+        if rodando == 3:
+            tela_atual = 3
+
+        if rodando == 1:
+            tela_atual = 1
+
+    elif tela_atual == 4:
+
+        level2 = Level2()
+
+        while rodando == 4:
+            level2.draw()
+            rodando = level2.update()
+
+        rodando = level2.update()
+            
+        if rodando == 5:
+            tela_atual = 5
+
+        if rodando == 3:
+            tela_atual = 3
+
+    elif tela_atual == 6:
+
+        level3 = Level3()
+
+        while rodando == 6:
+            level3.draw()
+            rodando = level3.update()
+
+        rodando = level3.update()
+            
+        if rodando == 7:
+            tela_atual = 7
+
+        if rodando == 5:
+            tela_atual = 5
 
     pg.display.update()
 
-# começa na tela de start
-# se pressionar vai para a tela de níveis (1)
-
-# se pressionar vai para o nível 1
-# se passar vai para a tela de níveis (2)
-
-# se pressionar vai para o nível 2
-# se passar vai para a tela de níveis (3)
-
-# se pressionar vai para o nível 3
-# se passar vai para a tela de níveis (4)
-
-# se pressionar vai para o fim
-                
 pg.quit()
