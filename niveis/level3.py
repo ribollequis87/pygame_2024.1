@@ -7,6 +7,7 @@ from funcoes import Utils
 class Level3:
 
     def __init__(self):
+        
         self.tiros = 2  # Número de tiros disponíveis
         self.s = np.array([80, 190])  # Posição inicial do personagem
         self.pressed = False  # Flag para indicar se o botão do mouse está pressionado
@@ -26,10 +27,10 @@ class Level3:
                 self.pressed = True
 
             if event.type == pg.KEYDOWN:
-                if event.key == pg.K_UP and self.assets.v0 < 6 and self.assets.v0 >= 1:
+                if event.key == pg.K_UP and self.assets.v0 < 7 and self.assets.v0 >= 1:
                     self.assets.v0 = self.assets.v0 + 1
 
-                if event.key == pg.K_DOWN and self.assets.v0 <= 6 and self.assets.v0 > 1:
+                if event.key == pg.K_DOWN and self.assets.v0 <= 7 and self.assets.v0 > 1:
                     self.assets.v0 = self.assets.v0 - 1
 
 
@@ -73,10 +74,15 @@ class Level3:
             gravtional_force_1 = (self.assets.constante_satelite / distance_1**2) * gravtional_direction_1
             self.v = self.v + gravtional_force_1
 
-            distance = np.linalg.norm((self.assets.planeta[0] - self.assets.planet_radius, self.assets.planeta[1] - self.assets.planet_radius) - self.s)
-            gravtional_direction = ((self.assets.planeta[0] - self.assets.planet_radius, self.assets.planeta[1] - self.assets.planet_radius) - self.s) / distance
-            gravtional_force = (self.assets.constante_sol / distance**2) * gravtional_direction
-            self.v = self.v + gravtional_force
+            distance_2 = np.linalg.norm((self.assets.x_sol - self.assets.circle_radius, self.assets.y_sol - self.assets.circle_radius) - self.s)
+            gravtional_direction_2 = ((self.assets.x_sol - self.assets.circle_radius, self.assets.y_sol - self.assets.circle_radius) - self.s) / distance_2
+            gravtional_force_2 = (self.assets.constante_sol / distance_2**2) * gravtional_direction_2
+            self.v = self.v + gravtional_force_2
+
+            distance_3 = np.linalg.norm((self.assets.x_planeta - self.assets.planet_radius, self.assets.y_planeta - self.assets.planet_radius) - self.s)
+            gravtional_direction_3 = ((self.assets.x_planeta - self.assets.planet_radius, self.assets.y_planeta - self.assets.planet_radius) - self.s) / distance_3
+            gravtional_force_3 = (self.assets.constante_planeta / distance_3**2) * gravtional_direction_3
+            self.v = self.v + gravtional_force_3
 
         pg.display.update()
 
@@ -105,25 +111,25 @@ class Level3:
         celeste = pg.draw.circle(self.assets.screen, (0, 200, 200), (self.assets.x_satelite, self.assets.y_satelite), 20)
         self.assets.screen.blit(self.assets.imp, (10, 180))
 
-        rect_luci = pg.Rect((570, self.assets.y_luci), (50, 50))
-        self.assets.screen.blit(self.assets.luci_retangulo, rect_luci)
+        # rect_luci = pg.Rect((570, self.assets.y_luci), (50, 50))
+        # self.assets.screen.blit(self.assets.luci_retangulo, rect_luci)
         self.assets.screen.blit(self.assets.luci, (570, self.assets.y_luci))
 
         # Desenhar o Sol e o planeta
-        pg.draw.circle(self.assets.screen, self.assets.circle_color, self.assets.circle_center, self.assets.circle_radius)
-        pg.draw.circle(self.assets.screen, self.assets.planet_color, self.assets.planeta, self.assets.planet_radius)
+        # pg.draw.circle(self.assets.screen, self.assets.circle_color, self.assets.circle_center, self.assets.circle_radius)
+        # pg.draw.circle(self.assets.screen, self.assets.planet_color, self.assets.planeta, self.assets.planet_radius)
 
         # Desenhar imagens
         self.assets.screen.blit(self.assets.imagem_satelite, (self.assets.x_satelite - self.assets.circle_radius, self.assets.y_satelite - self.assets.circle_radius))
-        self.assets.screen.blit(self.assets.imagem_sol, (self.assets.circle_center[0] - self.assets.circle_radius, self.assets.circle_center[1] - self.assets.circle_radius))
-        self.assets.screen.blit(self.assets.imagem_planeta, ((self.assets.planeta[0] - self.assets.planet_radius) -3.5, (self.assets.planeta[1] - self.assets.planet_radius)-3.5))
+        self.assets.screen.blit(self.assets.imagem_sol, (self.assets.x_sol - self.assets.circle_radius, self.assets.y_sol- self.assets.circle_radius))
+        self.assets.screen.blit(self.assets.imagem_planeta, ((self.assets.x_planeta - self.assets.planet_radius) -3.5, (self.assets.y_planeta - self.assets.planet_radius)-3.5))
 
         # Desenhar tiros disponíveis
         for i in range(self.tiros):
             self.assets.screen.blit(self.assets.imagem_tiro, (15 + (i * 25), 15))
 
-        for i in range(6):
+        for i in range(7):
             self.assets.screen.blit(self.assets.imagem_raio_vazio, (608 - (i * 25), 15))
 
         for i in range(self.assets.v0):
-            self.assets.screen.blit(self.assets.imagem_raio, (608 - (i * 25), 15))
+            self.assets.screen.blit(self.assets.imagem_raio, (458 + (i * 25), 15))

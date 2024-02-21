@@ -7,7 +7,7 @@ from funcoes import Utils
 class Level1:
 
     def __init__(self, assets):
-        self.assets = assets
+
         self.tiros = 4  # Número de tiros disponíveis
         self.s = np.array([80, 190])  # Posição inicial do personagem
         self.pressed = False  # Flag para indicar se o botão do mouse está pressionado
@@ -27,15 +27,29 @@ class Level1:
                 self.pressed = True
 
             if event.type == pg.KEYDOWN:
-                if event.key == pg.K_UP and self.assets.v0 < 6 and self.assets.v0 >= 1:
+                if event.key == pg.K_UP and self.assets.v0 < 7 and self.assets.v0 >= 1:
                     self.assets.v0 = self.assets.v0 + 1
 
-                if event.key == pg.K_DOWN and self.assets.v0 <= 6 and self.assets.v0 > 1:
+                if event.key == pg.K_DOWN and self.assets.v0 <= 7 and self.assets.v0 > 1:
                     self.assets.v0 = self.assets.v0 - 1
 
 
         if Utils.verificar_colisao_retangulo(self.s[0], self.s[1], 570, (self.assets.y_luci-20), 50, 50):
             return 3
+        
+        if Utils.verificar_circulo_circulo(self.s[0], self.s[1], 10, self.assets.x_satelite, self.assets.y_satelite, self.assets.circle_radius):
+            
+            if self.tiros <= 0:
+                return 1
+
+            if self.pressed:
+                self.tiros -= 1
+                self.y = pg.mouse.get_pos()
+                self.v = self.y - self.assets.s0
+                self.v = self.v / np.linalg.norm(self.v)
+                self.v *= self.assets.v0
+                self.s = self.assets.s0
+
 
         # Verificar se o personagem atingiu os limites da tela
         if self.tiros == 4:
@@ -85,15 +99,23 @@ class Level1:
 
         self.assets.screen.blit(self.assets.imagem_fundo, (0, 0))
 
-        for _ in range(1):
-            x_star = random.randint(0, 640)
-            y_star = random.randint(0, 480)
-            pg.draw.circle(self.assets.screen, (255, 255, 255), (x_star, y_star), 2)
+        # tempo_exibicao = 100000
+        # tempo_passado = 0
+
+        # for _ in range(1):
+        #     x_star = random.randint(0, 640)
+        #     y_star = random.randint(0, 480)
+
+        #     tempo_passado += pg.time.get_ticks()
+        #     if tempo_passado >= tempo_exibicao:
+        #         self.assets.screen.blit(self.assets.imagem_estrela, (x_star, y_star))
+
+            # pg.draw.circle(self.assets.screen, (255, 255, 255), (x_star, y_star), 2)
 
         celeste = pg.draw.circle(self.assets.screen, (0, 200, 200), (self.assets.x_satelite, self.assets.y_satelite), 20)
 
         rect_luci = pg.Rect((570, self.assets.y_luci), (50, 50))
-        self.assets.screen.blit(self.assets.luci_retangulo, rect_luci)
+        # self.assets.screen.blit(self.assets.luci_retangulo, rect_luci)
         self.assets.screen.blit(self.assets.luci, (570, self.assets.y_luci))
 
         # Desenhar imagens
@@ -114,8 +136,8 @@ class Level1:
         for i in range(self.tiros):
             self.assets.screen.blit(self.assets.imagem_tiro, (15 + (i * 25), 15))
 
-        for i in range(6):
+        for i in range(7):
             self.assets.screen.blit(self.assets.imagem_raio_vazio, (608 - (i * 25), 15))
 
         for i in range(self.assets.v0):
-            self.assets.screen.blit(self.assets.imagem_raio, (483 + (i * 25), 15))
+            self.assets.screen.blit(self.assets.imagem_raio, (458 + (i * 25), 15))

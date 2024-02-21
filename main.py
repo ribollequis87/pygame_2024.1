@@ -33,7 +33,31 @@ while rodando:
 
         tempo_passado += pg.time.get_ticks()
         if tempo_passado >= tempo_exibicao:
-            tela_atual = 1
+            tela_atual = 999
+
+    elif tela_atual == 999:
+
+        imagem_fundo = pg.image.load('images/tela_jogar.png')
+        imagem_fundo = pg.transform.scale(imagem_fundo, (largura, altura))
+        screen.blit(imagem_fundo, (0, 0))
+
+        # pg.draw.rect(screen, (200, 200, 200), (277, 320, 90, 25), 1) # JOGAR
+
+        # pg.draw.rect(screen, (200, 200, 200), (260, 360, 120, 25), 1) # INSTRUÇÕES
+        
+        # pg.draw.rect(screen, (200, 200, 200), (285, 395, 73, 25), 1) # SAIR
+
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                rodando = False
+
+            pos = pg.mouse.get_pos()
+
+            if event.type == pg.MOUSEBUTTONDOWN and funcoes.verificar_colisao_retangulo(pos[0], pos[1], 285, 395, 73, 25):
+                rodando = False
+
+            if event.type == pg.MOUSEBUTTONDOWN and funcoes.verificar_colisao_retangulo(pos[0], pos[1], 277, 320, 90, 25):
+                tela_atual = 1
 
     elif tela_atual == 1:
         imagem_fundo = pg.image.load('images/tela_niveis1.png')

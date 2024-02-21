@@ -7,9 +7,9 @@ class Assets:
         self.c = 100  # Constante gravitacional
         self.CENTRO_GRAVITACIONAL = (400, 300)  # Posição do centro gravitacional
 
-        self.constante_satelite = 600
-        self.constante_sol = 500
-        self.constante_planeta = 400
+        self.constante_satelite = 800
+        self.constante_sol = 700
+        self.constante_planeta = 600
 
         # Tamanho da tela e definição do FPS
         self.screen = pg.display.set_mode((640, 480))
@@ -44,20 +44,26 @@ class Assets:
         self.corpo_celeste.fill((30, 50, 100))  # Cor do personagem
 
         pg.display.set_caption('image')
-        self.luci = pg.image.load("images/nave.png").convert()
+        self.luci = pg.image.load("images/nave.png")
         self.luci = pg.transform.scale(self.luci, (60, 30))
         self.luci_retangulo = pg.Surface((60, 30))  # Tamanho do personagem
         self.luci_retangulo.fill((200, 200, 200))  # Cor do personagem
 
         pg.display.set_caption('image')
-        self.imp = pg.image.load("images/nave1.png").convert()
+        self.imp = pg.image.load("images/nave1.png")
         self.imp = pg.transform.scale(self.imp, (80, 45))
 
         self.rodando = True
         self.pressed = False
 
         self.x_satelite = np.random.randint(150, 500)
-        self.y_satelite = np.random.randint(150, 300)
+        self.y_satelite = np.random.randint(180, 270)
+
+        self.x_sol = np.random.randint(150, 500)
+        self.y_sol = np.random.randint(80, 150)
+
+        self.x_planeta = np.random.randint(150, 500)
+        self.y_planeta = np.random.randint(300, 340)
 
         self.y_luci = np.random.randint(150, 330)
 
@@ -65,19 +71,19 @@ class Assets:
         self.circle_color = (255, 0, 0)
         self.circle_radius = 25
         self.circle_center = (300, 100)
-        self.circle_rect = pg.Rect(self.circle_center[0] - self.circle_radius, self.circle_center[1] - self.circle_radius,
+        self.circle_rect = pg.Rect(self.x_sol - self.circle_radius, self.y_sol - self.circle_radius,
                                    self.circle_radius * 2, self.circle_radius * 2)
 
         # Parâmetros do planeta
         self.planet_color = (0, 0, 255)
         self.planet_radius = 20
-        self.planet_rect = pg.Rect(self.planeta[0] - self.planet_radius, self.planeta[1] - self.planet_radius,
+        self.planet_rect = pg.Rect(self.x_planeta - self.planet_radius, self.y_planeta - self.planet_radius,
                                     self.planet_radius * 2, self.planet_radius * 2)
 
         self.imagem_satelite = pg.image.load('images/pluto.png')
         self.imagem_satelite = pg.transform.scale(self.imagem_satelite, (2 * self.circle_radius, 2 * self.circle_radius))
 
-        self.imagem_sol = pg.image.load('images/marte.webp')
+        self.imagem_sol = pg.image.load('images/venus.png')
         self.imagem_sol = pg.transform.scale(self.imagem_sol, (2 * self.circle_radius, 2 * self.circle_radius))
 
         self.imagem_planeta = pg.image.load('images/urano.png')
@@ -94,3 +100,6 @@ class Assets:
 
         self.imagem_raio_vazio = pg.image.load('images/raio_vazio.png')
         self.imagem_raio_vazio = pg.transform.scale(self.imagem_raio_vazio, (20, 25))
+
+        self.imagem_estrela = pg.image.load('images/star.png')
+        self.imagem_estrela = pg.transform.scale(self.imagem_estrela, (20, 18))

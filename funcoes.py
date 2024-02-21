@@ -8,15 +8,8 @@ class Utils:
     @staticmethod
     def verificar_colisao_retangulo(x, y, x_quadrado, y_quadrado, largura_quadrado, altura_quadrado):
         return (x_quadrado <= x <= x_quadrado + largura_quadrado) and (y_quadrado <= y <= y_quadrado + altura_quadrado)
-
+    
     @staticmethod
-    def calcular_aceleracao_gravitacional(particula, centro_gravitacional, c):
-        px, py = particula.posicao
-        cx, cy = centro_gravitacional
-        dx = cx - px
-        dy = cy - py
-        dist = max(1, (dx ** 2 + dy ** 2) ** 0.5)
-        aceleracao = c / dist ** 2
-        ax = aceleracao * dx / dist
-        ay = aceleracao * dy / dist
-        return ax, ay
+    def verificar_circulo_circulo(x1, y1, raio1, x2, y2, raio2):
+        distancia_centros = ((x2 - x1) ** 2 + (y2 - y1) ** 2) ** 0.5
+        return distancia_centros <= raio1 + raio2
