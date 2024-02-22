@@ -82,9 +82,6 @@ class Assets:
         self.imagem_raio_vazio = pg.image.load('images/raio_vazio.png')
         self.imagem_raio_vazio = pg.transform.scale(self.imagem_raio_vazio, (20, 25))
 
-        self.imagem_estrela = pg.image.load('images/star.png')
-        self.imagem_estrela = pg.transform.scale(self.imagem_estrela, (20, 18))
-
         # 12- Estado do jogo
         self.rodando = True
         self.pressed = False

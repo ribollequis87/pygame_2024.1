@@ -35,6 +35,7 @@ class Level2:
                 # Verifica se o botão de disparo foi pressionado
                 if event.type == pg.MOUSEBUTTONDOWN and self.tiros >= 0 and not Utils.verificar_colisao_retangulo(mouse[0], mouse[1], 458, 15, 175, 250):
                     self.pressed = True
+                    self.sound_laser.set_volume(0.5)
                     self.sound_laser.play()  # Toca o som do laser
 
             if event.type == pg.KEYDOWN:
